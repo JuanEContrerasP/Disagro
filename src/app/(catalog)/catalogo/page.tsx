@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { ProductCard } from '@/components/ProductCard'
 import type { Producto, Categoria } from '@/types'
 
-export default function CatalogoPage() {
+function CatalogoContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -200,5 +200,17 @@ export default function CatalogoPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function CatalogoPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#F5F5F4] flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-[#3A6B35] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <CatalogoContent />
+    </Suspense>
   )
 }
