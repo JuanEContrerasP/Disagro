@@ -1,26 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --green-primary: #3A6B35;
+  --green-accent: #5B9B2F;
+  --green-light: #E8F5E2;
+  --green-hover: #2D5228;
+  --white: #FFFFFF;
+  --gray-soft: #F5F5F4;
+  --gray-border: #E2E8E0;
+  --gray-text: #6B7280;
+  --dark-text: #1C2B1A;
+
+  --background: var(--white);
+  --foreground: var(--dark-text);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-green-primary: var(--green-primary);
+  --color-green-accent: var(--green-accent);
+  --color-green-light: var(--green-light);
+  --color-green-hover: var(--green-hover);
+  --color-gray-soft: var(--gray-soft);
+  --color-gray-border: var(--gray-border);
+  --color-gray-text: var(--gray-text);
+  --color-dark-text: var(--dark-text);
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
