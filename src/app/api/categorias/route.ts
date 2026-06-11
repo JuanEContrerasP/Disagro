@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase'
+import { STATIC_CATEGORIAS } from '@/data/static-catalog'
 
 export async function GET() {
   try {
@@ -11,9 +12,9 @@ export async function GET() {
       .order('nombre')
 
     if (error) throw error
-    return NextResponse.json(data)
-  } catch (error) {
-    console.error('GET /api/categorias:', error)
-    return NextResponse.json({ error: 'Error al obtener categorías' }, { status: 500 })
+    if (data && data.length > 0) return NextResponse.json(data)
+    return NextResponse.json(STATIC_CATEGORIAS)
+  } catch {
+    return NextResponse.json(STATIC_CATEGORIAS)
   }
 }
