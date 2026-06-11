@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo Grupo Excala — DISAGRO MR</title>
+  <meta name="description" content="Catálogo digital de productos Grupo Excala distribuidos por DISAGRO MR. Mallas agrícolas, empaques, telas, plasticultura e infraestructura.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2E7D32;
+      --green-dark: #1B5E20;
+      --green-accent: #4CAF50;
+      --blue: #1565C0;
+      --blue-dark: #0D47A1;
+      --purple: #6A1B9A;
+      --purple-dark: #4A148C;
+      --orange: #E65100;
+      --orange-dark: #BF360C;
+      --white: #FFFFFF;
+      --bg: #F5F5F5;
+      --text: #333333;
+      --text-light: #666666;
+      --border: #E0E0E0;
+      --shadow: 0 2px 12px rgba(0,0,0,0.10);
+      --shadow-hover: 0 8px 28px rgba(0,0,0,0.16);
+      --radius: 12px;
+      --header-h: 68px;
+      --tabs-h: 52px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--green-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { color: white; }
+    .logo-text strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #A5D6A7;
+    }
+    .logo-text span {
+      font-size: 10px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.3px;
+    }
+
+    .search-wrap {
+      flex: 1;
+      max-width: 380px;
+      margin: 0 24px;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      height: 38px;
+      padding: 0 38px 0 14px;
+      border-radius: 20px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: background 0.2s;
+    }
+
+    .search-wrap input::placeholder { color: rgba(255,255,255,0.55); }
+    .search-wrap input:focus { background: rgba(255,255,255,0.22); }
+
+    .search-wrap svg {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.65);
+      pointer-events: none;
+    }
+
+    .header-badge {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+      display: none;
+    }
+
+    @media (min-width: 640px) { .header-badge { display: block; } }
+
+    /* ── STICKY TABS ── */
+    .cat-tabs {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 90;
+      background: white;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-tabs::-webkit-scrollbar { display: none; }
+
+    .cat-tab {
+      flex-shrink: 0;
+      padding: 0 20px;
+      height: var(--tabs-h);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-light);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .cat-tab:hover { color: var(--text); }
+
+    .cat-tab.active[data-cat="mallas"]        { color: var(--green); border-bottom-color: var(--green); }
+    .cat-tab.active[data-cat="empaques"]      { color: var(--blue); border-bottom-color: var(--blue); }
+    .cat-tab.active[data-cat="telas"]         { color: var(--purple); border-bottom-color: var(--purple); }
+    .cat-tab.active[data-cat="infraestructura"] { color: var(--orange); border-bottom-color: var(--orange); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--bg);
+      color: var(--text-light);
+    }
+
+    .cat-tab.active[data-cat="mallas"]        .badge { background: #E8F5E9; color: var(--green); }
+    .cat-tab.active[data-cat="empaques"]      .badge { background: #E3F2FD; color: var(--blue); }
+    .cat-tab.active[data-cat="telas"]         .badge { background: #F3E5F5; color: var(--purple); }
+    .cat-tab.active[data-cat="infraestructura"] .badge { background: #FBE9E7; color: var(--orange); }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: var(--header-h);
+      background: linear-gradient(135deg, var(--green-dark) 0%, #2E7D32 60%, #388E3C 100%);
+      padding: 56px 24px 52px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30 Q15 0 30 30 Q45 60 60 30' stroke='rgba(255,255,255,0.04)' fill='none' stroke-width='1'/%3E%3C/svg%3E") repeat;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 800;
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      font-size: clamp(14px, 2vw, 17px);
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .hero-chip {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main { padding: 0 16px 60px; max-width: 1200px; margin: 0 auto; }
+
+    /* ── CATEGORY SECTION ── */
+    .cat-section {
+      padding-top: 40px;
+      margin-bottom: 12px;
+    }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .cat-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .cat-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .cat-count {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 20px;
+    }
+
+    @media (min-width: 600px)  { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px)  { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    /* ── PRODUCT CARD ── */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      padding-top: 75%; /* 4:3 */
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .card-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .card:hover .card-img-wrap img { transform: scale(1.06); }
+
+    .card-provider {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0,0,0,0.55);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+    }
+
+    .card-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-cat-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .card-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card-specs {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+
+    .card-specs li {
+      font-size: 12.5px;
+      color: var(--text-light);
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .card-specs li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .card-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      color: white;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-light);
+      display: none;
+    }
+
+    .empty-state.show { display: block; }
+
+    .empty-state svg { margin-bottom: 16px; opacity: 0.35; }
+    .empty-state h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; margin-bottom: 8px; color: var(--text); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(3px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.25s;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-img {
+      width: 100%;
+      padding-top: 56.25%;
+      position: relative;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+    }
+
+    .modal-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      z-index: 5;
+    }
+
+    .modal-body { padding: 24px; }
+
+    .modal-body .card-cat-tag { margin-bottom: 8px; }
+
+    .modal-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 18px;
+      line-height: 1.65;
+    }
+
+    .modal-specs-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+
+    .modal-specs {
+      list-style: none;
+      margin-bottom: 20px;
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+
+    .modal-specs li {
+      font-size: 13.5px;
+      color: var(--text);
+      padding: 5px 0;
+      padding-left: 16px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.45;
+    }
+
+    .modal-specs li:last-child { border-bottom: none; }
+
+    .modal-specs li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-size: 12px;
+      top: 6px;
+    }
+
+    .modal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      margin-bottom: 20px;
+    }
+
+    .modal-table th {
+      background: var(--bg);
+      padding: 7px 10px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text-light);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .modal-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .modal-cta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-cta a, .modal-cta button {
+      flex: 1;
+      min-width: 130px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .btn-primary { background: var(--green); color: white; }
+    .btn-primary:hover { background: var(--green-dark); }
+
+    .btn-secondary { background: var(--bg); color: var(--text); border: 1.5px solid var(--border); }
+    .btn-secondary:hover { background: var(--border); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green-dark);
+      color: white;
+      padding: 48px 24px 32px;
+      margin-top: 60px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 640px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 960px) { .footer-inner { grid-template-columns: 2fr 1fr 1fr; } }
+
+    .footer-brand strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #A5D6A7;
+      margin-bottom: 4px;
+    }
+
+    .footer-brand p {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-top: 8px;
+    }
+
+    .footer-section h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #A5D6A7;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-section p, .footer-section a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      display: block;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    .footer-section a:hover { color: white; }
+
+    .provider-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      margin-top: 14px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── SCROLL TO TOP ── */
+    #scrollTop {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--green);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(46,125,50,0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 80;
+    }
+
+    #scrollTop.show { opacity: 1; pointer-events: all; }
+
+    /* ── SEARCH HIGHLIGHT ── */
+    .highlight-none { display: none !important; }
+
+    /* ── NO-RESULTS ── */
+    #noResults {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-light);
+    }
+
+    #noResults.show { display: block; }
+    #noResults h3 { font-family: 'Montserrat', sans-serif; margin-bottom: 8px; color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+  <a href="#" class="logo">
+    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="18" fill="#2E7D32"/>
+      <path d="M18 8 C12 8 8 14 8 20 C8 26 12 30 18 30 C24 30 28 26 28 20 C28 14 24 8 18 8 Z" fill="#1B5E20"/>
+      <path d="M18 28 C18 28 13 22 13 17 C13 13.5 15.2 10.5 18 10.5" stroke="#81C784" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <path d="M18 28 C18 28 23 22 23 17 C23 13.5 20.8 10.5 18 10.5" stroke="#A5D6A7" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <circle cx="18" cy="10.5" r="1.8" fill="#C8E6C9"/>
+      <line x1="18" y1="10.5" x2="18" y2="28" stroke="#66BB6A" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text">
+      <strong>DISAGRO MR</strong>
+      <span>Distribuciones Agroindustriales</span>
+    </div>
+  </a>
+
+  <div class="search-wrap">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Buscar producto..."
+      autocomplete="off"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+  </div>
+
+  <span class="header-badge">Proveedor: Grupo Excala</span>
+</header>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Catálogo de Productos<br>Grupo Excala</h1>
+    <p>Distribuido por <strong>DISAGRO MR</strong> — Insumos del campo con respaldo de expertos</p>
+    <p style="opacity:0.7;font-size:13px">Mosquera, Cundinamarca · Colombia</p>
+    <div class="hero-chips">
+      <span class="hero-chip">🌿 Mallas Agrícolas</span>
+      <span class="hero-chip">📦 Empaques</span>
+      <span class="hero-chip">🧵 Telas e Hilos</span>
+      <span class="hero-chip">🏗️ Infraestructura</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STICKY TABS ═══════════════ -->
+<nav class="cat-tabs" id="catTabs">
+  <button class="cat-tab active" data-cat="mallas" onclick="scrollToSection('mallas')">
+    🌿 Mallas Agrícolas <span class="badge" id="badge-mallas">0</span>
+  </button>
+  <button class="cat-tab" data-cat="empaques" onclick="scrollToSection('empaques')">
+    📦 Mallas y Estuches <span class="badge" id="badge-empaques">0</span>
+  </button>
+  <button class="cat-tab" data-cat="telas" onclick="scrollToSection('telas')">
+    🧵 Telas, Plast. e Hilos <span class="badge" id="badge-telas">0</span>
+  </button>
+  <button class="cat-tab" data-cat="infraestructura" onclick="scrollToSection('infraestructura')">
+    🏗️ Infraestructura <span class="badge" id="badge-infraestructura">0</span>
+  </button>
+</nav>
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<main>
+  <div id="noResults">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.5">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <h3>Sin resultados</h3>
+    <p>Intenta con otro término de búsqueda</p>
+  </div>
+
+  <!-- CATEGORÍA 1 -->
+  <section id="sec-mallas" class="cat-section">
+    <div class="cat-header">
+      <div class="cat-dot" style="background:var(--green)"></div>
+      <h2>Mallas Agrícolas</h2>
+      <span class="cat-count" id="count-mallas"></span>
+    </div>
+    <div class="product-grid" id="grid-mallas"></div>
+  </section>
+
+  <!-- CATEGORÍA 2 -->
+  <section id="sec-empaques" class="cat-section">
+    <div class="cat-header">
+      <div class="cat-dot" style="background:var(--blue)"></div>
+      <h2>Mallas y Estuches (Empaques)</h2>
+      <span class="cat-count" id="count-empaques"></span>
+    </div>
+    <div class="product-grid" id="grid-empaques"></div>
+  </section>
+
+  <!-- CATEGORÍA 3 -->
+  <section id="sec-telas" class="cat-section">
+    <div class="cat-header">
+      <div class="cat-dot" style="background:var(--purple)"></div>
+      <h2>Telas, Plasticultura e Hilos</h2>
+      <span class="cat-count" id="count-telas"></span>
+    </div>
+    <div class="product-grid" id="grid-telas"></div>
+  </section>
+
+  <!-- CATEGORÍA 4 -->
+  <section id="sec-infraestructura" class="cat-section">
+    <div class="cat-header">
+      <div class="cat-dot" style="background:var(--orange)"></div>
+      <h2>Ingeniería e Infraestructura</h2>
+      <span class="cat-count" id="count-infraestructura"></span>
+    </div>
+    <div class="product-grid" id="grid-infraestructura"></div>
+  </section>
+</main>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-img" id="modalImg">
+      <img id="modalImgEl" src="" alt="">
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="modalTag"></div>
+      <h2 class="modal-name" id="modalName"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div id="modalSpecsWrap">
+        <p class="modal-specs-title">Especificaciones técnicas</p>
+        <ul class="modal-specs" id="modalSpecs"></ul>
+      </div>
+      <div id="modalTableWrap"></div>
+      <div class="modal-cta">
+        <a id="modalMailto" href="#" class="btn-primary">✉️ Consultar por este producto</a>
+        <button class="btn-secondary" onclick="closeModalBtn()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>DISAGRO MR</strong>
+      <span style="font-size:12px;color:rgba(255,255,255,0.5)">Distribuciones Agroindustriales MR</span>
+      <p>Insumos del campo con respaldo de expertos. Conectamos el conocimiento agroindustrial con el productor colombiano.</p>
+      <div class="provider-badge">🏭 Proveedor oficial: Grupo Excala</div>
+    </div>
+    <div class="footer-section">
+      <h4>Contacto</h4>
+      <a href="tel:+573102978679">+57 310 297 8679</a>
+      <a href="tel:+573208327785">+57 320 832 7785</a>
+      <a href="mailto:Comercial@disagromr.com">Comercial@disagromr.com</a>
+      <p>Cra 3Este #3-39, Mosquera<br>Cundinamarca, Colombia</p>
+    </div>
+    <div class="footer-section">
+      <h4>Categorías</h4>
+      <a href="#sec-mallas" onclick="scrollToSection('mallas');return false;">Mallas Agrícolas</a>
+      <a href="#sec-empaques" onclick="scrollToSection('empaques');return false;">Mallas y Estuches</a>
+      <a href="#sec-telas" onclick="scrollToSection('telas');return false;">Telas e Hilos</a>
+      <a href="#sec-infraestructura" onclick="scrollToSection('infraestructura');return false;">Infraestructura</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 DISAGRO MR — Distribuciones Agroindustriales MR · Catálogo Grupo Excala · Todos los derechos reservados
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<script>
+// ════════════════════════════════════════
+// PRODUCT DATA
+// ════════════════════════════════════════
+const PRODUCTS = [
+
+  // ── CATEGORÍA 1: MALLAS AGRÍCOLAS ──────────────────────────────────────
+  {
+    id: 1, cat: 'mallas', name: 'Malla Diamante',
+    desc: 'Malla plástica en PE de alta densidad especialmente diseñada para el secado del café.',
+    specs: ['Material: PE alta densidad', 'Diseñada para secado de café', 'Apta para clasificación de granos', 'Alta resistencia a la intemperie'],
+    usos: 'Secado de café, clasificación de granos',
+    unsplash: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 2, cat: 'mallas', name: 'Malla Gallinero',
+    desc: 'Mallas elaboradas con resina sintética utilizadas para cerramientos en general.',
+    specs: ['Aditivada con filtros UV', 'Alta resistencia mecánica', 'No se oxida', 'Larga vida útil en exterior'],
+    usos: 'Cerramientos generales, corrales avícolas',
+    unsplash: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 3, cat: 'mallas', name: 'Malla Antipájaro',
+    desc: 'Barrera física que impide la entrada de plagas y depredadores, permitiendo el ingreso de polinizadores a los cultivos.',
+    specs: ['Barrera física anti-plagas y depredadores', 'Permite el ingreso de polinizadores', 'Disponible en varios calibres', 'Material plástico duradero'],
+    usos: 'Protección de cultivos, acuicultura',
+    unsplash: 'https://images.unsplash.com/photo-1591086429386-e4a25a63d9e4?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 4, cat: 'mallas', name: 'Malla Antiinsecto',
+    desc: 'Malla plástica diseñada para cerramiento de espacios, evitando el ingreso de insectos y plagas.',
+    specs: ['Cerramiento hermético de espacios', 'Prevención de insectos y plagas', 'Alta densidad de hilos', 'Tratamiento UV resistente'],
+    usos: 'Invernaderos, viveros, estructuras agrícolas',
+    unsplash: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 5, cat: 'mallas', name: 'Malla Cuadrada',
+    desc: 'Malla plástica multiusos disponible en múltiples colores para diversas aplicaciones agrícolas e industriales.',
+    specs: ['Disponible en múltiples colores', 'Cerramiento de jardines, cultivos y patios', 'Separación de materiales livianos', 'Apta para piscicultura'],
+    usos: 'Jardines, cultivos, piscicultura, separación de materiales',
+    unsplash: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 6, cat: 'mallas', name: 'Malla Soporte Planta',
+    desc: 'Mallas UV especialmente diseñadas para tutoreo de cultivos de hortalizas, flores y cultivos especializados.',
+    specs: ['Resistente a rayos UV', 'Para tutoreo de hortalizas y flores', 'Compatible con cultivos de cannabis', 'Guía de crecimiento vertical'],
+    usos: 'Tutoreo de hortalizas, flores, cultivos especializados',
+    unsplash: 'https://images.unsplash.com/photo-1597916829826-02e5bb4a54e0?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 7, cat: 'mallas', name: 'Malla Cerramiento',
+    desc: 'Malla plástica resistente para cerramientos exteriores y confinamiento animal en granjas.',
+    specs: ['Cerramiento de patios y jardines', 'Confinamiento en granjas avícolas', 'Alta resistencia a impactos', 'Fácil instalación'],
+    usos: 'Patios, jardines, granjas avícolas',
+    unsplash: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=75&auto=format&fit=crop'
+  },
+
+  // ── CATEGORÍA 2: EMPAQUES (CLAMSHELL) ──────────────────────────────────
+  {
+    id: 8, cat: 'empaques', name: 'Clamshell 125g (a granel)',
+    desc: 'Envase plástico termoformado, transparente y reciclable para empaque de frutas pequeñas.',
+    specs: ['Material: PET perforado', 'Dimensiones: 108,25 × 106,5 × 31 mm', 'Capacidad: ~125 gramos', '1.000 unidades por caja', '100% transparente y reciclable'],
+    table: { headers: ['Ref.','Peso','Dimensiones','Und/Caja'], rows: [['Clamshell granel','125g','108,25×106,5×31 mm','1.000']] },
+    usos: 'Empaque de frutas pequeñas, frutillas',
+    unsplash: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 9, cat: 'empaques', name: 'Clamshell 250g (a granel)',
+    desc: 'Envase plástico termoformado para frutas medianas como tomate cherry, arándanos y uvas.',
+    specs: ['Material: PET perforado', 'Dimensiones: 123 × 126 × 59,6 mm', 'Capacidad: ~250 gramos', '800 unidades por caja', '100% transparente y reciclable'],
+    usos: 'Tomate cherry, arándanos, frutos medianos',
+    unsplash: 'https://images.unsplash.com/photo-1518977676405-8e56671f62d8?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 10, cat: 'empaques', name: 'Clamshell 500g (a granel)',
+    desc: 'Envase plástico termoformado de mayor capacidad para frutas como uvas y frutos mixtos.',
+    specs: ['Material: PET perforado', 'Dimensiones: 119,25 × 182 × 70,9 mm', 'Capacidad: ~500 gramos', '500 unidades por caja', '100% transparente y reciclable'],
+    usos: 'Uvas, frutos medianos, mezclas de fruta',
+    unsplash: 'https://images.unsplash.com/photo-1515778767554-195d98dedd8d?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 11, cat: 'empaques', name: 'Estuche AL 112 — Clamshell 125g',
+    desc: 'Estuche individual termoformado para frutas pequeñas tipo uchuva y fresas de exportación.',
+    specs: ['Material: PET perforado', 'Dimensiones: 10,5 × 10,5 × 4 cm', 'Capacidad: ~125 gramos', '100 unidades por paquete'],
+    usos: 'Uchuva, fresas pequeñas, exportación',
+    unsplash: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 12, cat: 'empaques', name: 'Estuche AL 118 — Clamshell 125g',
+    desc: 'Estuche termoformado rectangular para frutas pequeñas tipo mora, arándano y frambuesa.',
+    specs: ['Material: PET perforado', 'Dimensiones: 10,7 × 7,7 × 4,4 cm', 'Capacidad: ~125 gramos', '100 unidades por paquete'],
+    usos: 'Mora, arándano, frambuesa, frutos pequeños',
+    unsplash: 'https://images.unsplash.com/photo-1534531173927-aeb928d54385?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 13, cat: 'empaques', name: 'Estuche AL 200 — Clamshell 175g',
+    desc: 'Estuche termoformado de tamaño medio para frutas tipo uchuva o tomate cherry de exportación.',
+    specs: ['Material: PET perforado', 'Dimensiones: 12,8 × 14,4 × 3,7 cm', 'Capacidad: ~175 gramos', '100 unidades por paquete'],
+    usos: 'Uchuva premium, tomate cherry, exportación',
+    unsplash: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 14, cat: 'empaques', name: 'Estuche AL 114 — Clamshell 250g',
+    desc: 'Estuche termoformado profundo para tomate cherry y frutas medianas en presentación retail.',
+    specs: ['Material: PET perforado', 'Dimensiones: 12,7 × 8,9 × 7 cm', 'Capacidad: ~250 gramos', '100 unidades por paquete'],
+    usos: 'Tomate cherry, frutos medianos, retail',
+    unsplash: 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 15, cat: 'empaques', name: 'Estuche AL 119B — Clamshell 400g',
+    desc: 'Estuche termoformado de baja altura para frutas grandes tipo tomate y fresa en bandeja.',
+    specs: ['Material: PET perforado', 'Dimensiones: 18 × 10 × 5,8 cm', 'Capacidad: ~400 gramos', '100 unidades por paquete', 'Versión perfil bajo'],
+    usos: 'Tomate, fresa en bandeja, frutas grandes',
+    unsplash: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 16, cat: 'empaques', name: 'Estuche AL 119 — Clamshell 500g',
+    desc: 'Estuche termoformado de altura estándar para fresas y frutas grandes en presentación premium.',
+    specs: ['Material: PET perforado', 'Dimensiones: 18 × 10 × 7,6 cm', 'Capacidad: ~500 gramos', '100 unidades por paquete', 'Versión perfil estándar'],
+    usos: 'Fresas, uvas, frutas grandes premium',
+    unsplash: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 17, cat: 'empaques', name: 'Clamshell Redondo 500g',
+    desc: 'Envase redondo de alta resistencia para lechugas y verduras de hoja en presentación fresca.',
+    specs: ['Diámetro: 16 cm × Alto: 10,5 cm', 'Capacidad: ~500 gramos', 'Resistencia ALTA al rasgado o punzado', 'Apto para temperatura ambiente o fría', 'Material para contacto directo con alimentos'],
+    usos: 'Lechuga, espinaca, verduras de hoja, hierbas',
+    unsplash: 'https://images.unsplash.com/photo-1558818498-28c1e002b655?w=600&q=75&auto=format&fit=crop'
+  },
+
+  // ── CATEGORÍA 3: TELAS, PLASTICULTURA E HILOS ──────────────────────────
+  {
+    id: 18, cat: 'telas', name: 'Tela Cubresuelos',
+    desc: 'Tela agrícola de alta calidad para manejo de suelos en cultivos intensivos.',
+    specs: ['Mejora la productividad de los cultivos', 'Controla el crecimiento de malezas y plagas', 'Disminuye el consumo de agua y agroquímicos', 'Larga vida útil'],
+    usos: 'Control de malezas, fruticultura, horticultura',
+    unsplash: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 19, cat: 'telas', name: 'Tela Cerramiento',
+    desc: 'Barrera visual de tela para obras, cultivos y áreas de trabajo agrícola.',
+    specs: ['Barrera visual que restringe el paso de personas y animales', 'Sirve como barrera para el polvo y suciedad', 'Material resistente a la intemperie', 'Fácil instalación con postes'],
+    usos: 'Obras agrícolas, perímetros de cultivo',
+    unsplash: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 20, cat: 'telas', name: 'Tela Antiáfido / Anti-Trip',
+    desc: 'Malla de control antiáfidos para protección de cultivos en invernadero con alta ventilación.',
+    specs: ['Fabricada en PEAD', 'Anchos: 3 y 4 metros × 100 m lineales', 'Referencias: 40, 50 y 55 mesh', 'Aditivada con filtros UV a 5 años', 'Color transparente'],
+    usos: 'Protección en invernadero, cultivos de exportación',
+    unsplash: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 21, cat: 'telas', name: 'Malla Control Granizo',
+    desc: 'Barrera física de hilos de monofilamento para proteger cultivos del daño por granizo.',
+    specs: ['Fabricada en hilos de monofilamento PEAD', 'Anchos disponibles: 4,5 m y 9 m', 'Protección UV a 5 años', 'Alta resistencia al impacto'],
+    usos: 'Frutales, viñedos, cultivos a cielo abierto',
+    unsplash: 'https://images.unsplash.com/photo-1556742400-b5b7c512f9a4?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 22, cat: 'telas', name: 'Tela Cortavientos',
+    desc: 'Tela porosa para control de vientos en cultivos a cielo abierto, protege sin bloquear la aireación.',
+    specs: ['Evita la caída de frutos por impacto del viento', 'Disminuye la temperatura del cultivo por aireación', 'Estimula la polinización por entrada del viento', 'Material poroso y resistente'],
+    usos: 'Fruticultura, floricultura, cultivos de exportación',
+    unsplash: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 23, cat: 'telas', name: 'Telas de Fibra Natural',
+    desc: 'Telas biodegradables de fibra natural para manejo sostenible de suelos y cultivos.',
+    specs: ['100% biodegradables', 'Mantienen la humedad absorbiendo hasta 4× su peso', 'Reducen la temperatura por radiación', 'Fáciles de instalar y mantener', 'Favorecen la revegetalización'],
+    usos: 'Acolchado biodegradable, control de erosión, viveros',
+    unsplash: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 24, cat: 'telas', name: 'Tela Sombra Negra 65% y 80%',
+    desc: 'Tela de sombrío para manejo preciso de luminosidad en cultivos bajo invernadero o semisombra.',
+    specs: ['Color: negra', 'Porcentajes: 65% y 80% sombrío', 'Protección UV: 24 meses', 'Ancho: 4 metros × rollo 100 m lineales'],
+    usos: 'Viveros, flores tropicales, cultivos de sombrío',
+    unsplash: 'https://images.unsplash.com/photo-1591086429386-e4a25a63d9e4?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 25, cat: 'telas', name: 'Plásticos para Invernadero',
+    desc: 'Plásticos especializados de alta claridad para cubiertas de invernadero y acolchado de suelo.',
+    specs: ['Cubierta de invernaderos de alta claridad', 'Acolchado de suelos (mulching)', 'Manejo de cultivos protegidos', 'Disponible en varios calibres y colores'],
+    usos: 'Invernaderos, plasticultura, mulching',
+    unsplash: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 26, cat: 'telas', name: 'Sacos de Polipropileno',
+    desc: 'Sacos industriales de alta resistencia para empaque de insumos y productos agrícolas a granel.',
+    specs: ['Laminados y sin laminar', 'Material 100% virgen de alta resistencia', 'Disponible 100% blanco o marcado a 1-2 caras', 'Fácil manejo y sellado'],
+    usos: 'Empaque de granos, fertilizantes, semillas',
+    unsplash: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 27, cat: 'telas', name: 'Hilos y Sogas de Fique',
+    desc: 'Hilos y sogas de fibra natural de fique con tratamiento especial para mayor durabilidad en el campo.',
+    specs: ['Elaborados con fibras 100% naturales', 'Recubiertos con emulsión especial', 'Mayor resistencia a la humedad', 'Evita el ataque de microorganismos'],
+    usos: 'Amarre de cultivos, empaque artesanal, tutoreo',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 28, cat: 'telas', name: 'Hilos de Polipropileno',
+    desc: 'Hilos sintéticos de alta resistencia para uso agrícola e industrial en diversas aplicaciones.',
+    specs: ['Mayor resistencia que hilos naturales', 'Colores más vivos y permanentes', 'Diferentes presentaciones disponibles', 'Resistencia a la humedad prolongada'],
+    usos: 'Amarre industrial, costura de sacos, tutoreo',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 29, cat: 'telas', name: 'Soga Matizada Negra',
+    desc: 'Soga de polipropileno matizada negra de alto rendimiento para manejo de ganado y encarpado.',
+    specs: ['Diámetros: 6-8-10-12-14 mm', 'Resistencias: 315/388/487/583/877 kgf', 'Manejo de ganado, equinos y animales de granja', 'Encarpado de tractomulas y camiones', 'Aditivo UV incluido'],
+    usos: 'Ganadería, transporte, camping',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 30, cat: 'telas', name: 'Soga Media Tenacidad',
+    desc: 'Soga de polipropileno multiusos de mediana resistencia en colores vivos para múltiples usos.',
+    specs: ['Diámetros: 6-8-10-12 mm', 'Resistencias: 209/338/434/450 kgf', 'Colores: amarillo, azul, rojo', 'Accesorios para mascotas', 'Artesanías y decoración'],
+    usos: 'Mascotas, artesanías, usos creativos y tácticos',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 31, cat: 'telas', name: 'Soga Alta Resistencia',
+    desc: 'Soga para usos de alta carga, manejo de ganado pesado y amarre de embarcaciones.',
+    specs: ['Diámetros: 6-8-10-12 mm', 'Resistencias: 416/322/522/796 kgf', 'Colores: blanco, negro, rojo', 'Ganadería pesada y equinos', 'Amarre de botes y embarcaciones pequeñas'],
+    usos: 'Ganadería pesada, marina, transporte de cargas',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 32, cat: 'telas', name: 'Soga Ganafull',
+    desc: 'Soga multipropósito de alta calidad para ganadería, transporte y uso en el campo.',
+    specs: ['Diámetros: 6-8-10-12 mm', 'Resistencias: 416/322/522/796 kgf', 'Colores: blanco, negro, rojo', 'Manejo de ganado y equinos', 'Encarpado de tractomulas'],
+    usos: 'Ganadería, transporte, encarpado',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 33, cat: 'telas', name: 'Soga Pisadora',
+    desc: 'Soga especializada de polipropileno azul de 5mm para amarres industriales de alta especialización.',
+    specs: ['Polipropileno de 5mm', 'Aditivo UV a 2 años', 'Altamente especializada y resistente', 'Flexibilidad y resistencia a altas temperaturas', 'Color azul distintivo'],
+    usos: 'Amarres industriales especializados',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+
+  // ── CATEGORÍA 4: INFRAESTRUCTURA ──────────────────────────────────────
+  {
+    id: 34, cat: 'infraestructura', name: 'Láminas CartonPlast',
+    desc: 'Láminas plásticas corrugadas de polipropileno para señalización, construcción y embalaje.',
+    specs: ['Polipropileno 100%', 'Impermeable e inmune a hongos y bacterias', 'Liviano, moldeable y troquelable', 'Posibilidad de grapar o sellar por ultrasonido', 'Reciclable y resistente a agentes químicos'],
+    usos: 'Señalización, embalaje, entrepisos temporales',
+    unsplash: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 35, cat: 'infraestructura', name: 'Agrotextil',
+    desc: 'Manto geotextil biodegradable para revegetalización y recuperación de zonas degradadas.',
+    specs: ['Biodegradable, se integra totalmente al suelo', 'Facilita el paso moderado de la luz solar', 'Recupera áreas degradadas o quemadas', 'Retiene y libera humedad generando microclima', 'Apto para riveras de ríos y quebradas'],
+    usos: 'Revegetalización, control de erosión, recuperación ambiental',
+    unsplash: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 36, cat: 'infraestructura', name: 'Sacos Suelo Cemento',
+    desc: 'Sacos de fique para obras de estabilización de suelos y control de erosión en taludes.',
+    specs: ['Alta resistencia al procedimiento de compactación', 'Biodegradable', 'Favorece el proceso de revegetalización', 'No se desliza al armar la estructura', 'Se moldea y compacta fácilmente'],
+    usos: 'Estabilización de taludes, control de erosión',
+    unsplash: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 37, cat: 'infraestructura', name: 'Saco Trinchera',
+    desc: 'Sacos plásticos de alta resistencia para obras de contención y control de inundaciones.',
+    specs: ['Reciclables', 'Alta resistencia a factores hostiles del ambiente', 'Flexibles y fáciles de llenar', 'Aditivo UV para protección solar intensa', 'Alta durabilidad en exterior'],
+    usos: 'Control de inundaciones, barreras de contención',
+    unsplash: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 38, cat: 'infraestructura', name: 'Malla Rockshield',
+    desc: 'Malla especializada para revestimiento de tuberías en oleoductos y gaseoductos.',
+    specs: ['Revestimiento de tuberías en oleoductos y gaseoductos', 'Minimiza el impacto del material de relleno', 'No se oxida', 'Resistente a fungicidas, humedad y químicos'],
+    usos: 'Industria petrolera, gaseoductos, infraestructura',
+    unsplash: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 39, cat: 'infraestructura', name: 'Tela Cerramiento (Obras)',
+    desc: 'Tela de cerramiento naranja para delimitación y seguridad en obras civiles y construcción.',
+    specs: ['Barrera visual que restringe el paso de personas y animales', 'Barrera para el polvo y la suciedad', 'Alta visibilidad en obra', 'Material resistente a la intemperie'],
+    usos: 'Obras civiles, construcción, demarcación',
+    unsplash: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 40, cat: 'infraestructura', name: 'Sogas Polipropileno Industrial',
+    desc: 'Sogas de polipropileno para usos de alta carga en construcción, industria y logística.',
+    specs: ['Alta resistencia a la tensión para elevar material', 'Transportar herramientas y cargas', 'Múltiples tipos de amarres', 'Sectores ganadero, marítimo, industrial'],
+    usos: 'Construcción, industria, logística pesada',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  },
+  {
+    id: 41, cat: 'infraestructura', name: 'Soga Trenza Tipo C',
+    desc: 'Trenza de polipropileno de alta resistencia conformada por 8 y 16 cabos para cargas pesadas.',
+    specs: ['Trenza de 8 y 16 cabos según espesor (19-21 mm)', 'Alta vida útil y durabilidad', 'Aditivadas con filtros UV', 'Resistencia a la humedad', 'Alta resistencia al peso y tensión'],
+    usos: 'Cargas pesadas, marina, construcción',
+    unsplash: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'
+  }
+];
+
+// ════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════
+const CAT_CONFIG = {
+  mallas:         { color: '#2E7D32', bg: '#E8F5E9', btnBg: '#2E7D32', label: 'Mallas Agrícolas' },
+  empaques:       { color: '#1565C0', bg: '#E3F2FD', btnBg: '#1565C0', label: 'Empaques' },
+  telas:          { color: '#6A1B9A', bg: '#F3E5F5', btnBg: '#6A1B9A', label: 'Telas e Hilos' },
+  infraestructura:{ color: '#E65100', bg: '#FBE9E7', btnBg: '#E65100', label: 'Infraestructura' }
+};
+
+// ════════════════════════════════════════
+// PLACEHOLDER GENERATOR
+// ════════════════════════════════════════
+function makePlaceholder(name, cat) {
+  const { color } = CAT_CONFIG[cat];
+  const dark = color + 'DD';
+  const words = name.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join('');
+  // Abbreviation lines
+  const lines = name.split(' ');
+  const line1 = lines.slice(0, Math.ceil(lines.length/2)).join(' ');
+  const line2 = lines.slice(Math.ceil(lines.length/2)).join(' ');
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+    <defs>
+      <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:${color}"/>
+        <stop offset="100%" style="stop-color:${dark}"/>
+      </linearGradient>
+      <pattern id="p" width="20" height="20" patternUnits="userSpaceOnUse">
+        <circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.06)"/>
+      </pattern>
+    </defs>
+    <rect width="400" height="300" fill="url(#g)"/>
+    <rect width="400" height="300" fill="url(#p)"/>
+    <text x="200" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="52" font-weight="bold" fill="rgba(255,255,255,0.18)">${words}</text>
+    <text x="200" y="170" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="white">${line1}</text>
+    ${line2 ? `<text x="200" y="193" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="white">${line2}</text>` : ''}
+    <text x="200" y="225" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="rgba(255,255,255,0.6)">Grupo Excala</text>
+    <line x1="160" y1="238" x2="240" y2="238" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+    <text x="200" y="256" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">DISAGRO MR</text>
+  </svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+// ════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════
+function renderCards(list) {
+  const grids = { mallas: [], empaques: [], telas: [], infraestructura: [] };
+  list.forEach(p => { if (grids[p.cat]) grids[p.cat].push(p); });
+
+  ['mallas','empaques','telas','infraestructura'].forEach(cat => {
+    const grid = document.getElementById('grid-' + cat);
+    const count = document.getElementById('count-' + cat);
+    const badge = document.getElementById('badge-' + cat);
+    const items = grids[cat];
+    count.textContent = items.length + ' producto' + (items.length !== 1 ? 's' : '');
+    badge.textContent = items.length;
+    grid.innerHTML = '';
+
+    items.forEach(p => {
+      const cfg = CAT_CONFIG[p.cat];
+      const placeholder = makePlaceholder(p.name, p.cat);
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.setAttribute('data-id', p.id);
+      card.innerHTML = `
+        <div class="card-img-wrap">
+          <img
+            src="${p.unsplash || placeholder}"
+            alt="${p.name}"
+            loading="lazy"
+            onerror="this.src='${placeholder}'"
+          >
+          <span class="card-provider">Grupo Excala</span>
+        </div>
+        <div class="card-body">
+          <span class="card-cat-tag" style="background:${cfg.bg};color:${cfg.color}">
+            ${cfg.label}
+          </span>
+          <h3 class="card-name">${p.name}</h3>
+          <ul class="card-specs">
+            ${p.specs.slice(0,3).map(s => `<li>${s}</li>`).join('')}
+          </ul>
+          <button
+            class="card-btn"
+            style="background:${cfg.btnBg}"
+            onclick="openModal(${p.id})"
+          >
+            Ver más detalle
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Show/hide section
+    const sec = document.getElementById('sec-' + cat);
+    sec.style.display = items.length === 0 ? 'none' : '';
+  });
+
+  // Show no-results if all empty
+  const total = list.length;
+  document.getElementById('noResults').classList.toggle('show', total === 0);
+
+  // Animate cards
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.card').forEach((card, i) => {
+      setTimeout(() => card.classList.add('visible'), i * 40);
+    });
+  });
+
+  setupIntersectionObserver();
+}
+
+// ════════════════════════════════════════
+// SEARCH
+// ════════════════════════════════════════
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) {
+    renderCards(PRODUCTS);
+    return;
+  }
+  const filtered = PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.desc.toLowerCase().includes(q) ||
+    (p.specs || []).some(s => s.toLowerCase().includes(q)) ||
+    CAT_CONFIG[p.cat].label.toLowerCase().includes(q)
+  );
+  renderCards(filtered);
+});
+
+// ════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════
+function scrollToSection(cat) {
+  const sec = document.getElementById('sec-' + cat);
+  if (!sec) return;
+  const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'));
+  const tabsH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tabs-h'));
+  const top = sec.getBoundingClientRect().top + window.scrollY - headerH - tabsH - 8;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+function setActiveTab(cat) {
+  document.querySelectorAll('.cat-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.cat === cat);
+  });
+}
+
+// Highlight tab based on scroll position
+const catOrder = ['mallas','empaques','telas','infraestructura'];
+window.addEventListener('scroll', () => {
+  const headerH = 68, tabsH = 52;
+  const scrollY = window.scrollY;
+
+  // Scroll-to-top button
+  document.getElementById('scrollTop').classList.toggle('show', scrollY > 400);
+
+  // Active tab
+  let active = catOrder[0];
+  catOrder.forEach(cat => {
+    const sec = document.getElementById('sec-' + cat);
+    if (!sec) return;
+    const top = sec.getBoundingClientRect().top + scrollY - headerH - tabsH - 20;
+    if (scrollY >= top) active = cat;
+  });
+  setActiveTab(active);
+}, { passive: true });
+
+// ════════════════════════════════════════
+// MODAL
+// ════════════════════════════════════════
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const cfg = CAT_CONFIG[p.cat];
+  const placeholder = makePlaceholder(p.name, p.cat);
+
+  const img = document.getElementById('modalImgEl');
+  img.src = p.unsplash || placeholder;
+  img.alt = p.name;
+  img.onerror = () => { img.src = placeholder; };
+
+  document.getElementById('modalTag').innerHTML =
+    `<span class="card-cat-tag" style="background:${cfg.bg};color:${cfg.color}">${cfg.label}</span>`;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalDesc').textContent = p.desc;
+
+  const specsList = document.getElementById('modalSpecs');
+  specsList.innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
+
+  const tableWrap = document.getElementById('modalTableWrap');
+  if (p.table) {
+    tableWrap.innerHTML = `
+      <p class="modal-specs-title" style="margin-top:14px">Datos técnicos</p>
+      <table class="modal-table">
+        <thead><tr>${p.table.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+        <tbody>${p.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table>
+    `;
+  } else {
+    tableWrap.innerHTML = '';
+  }
+
+  const mailto = `mailto:Comercial@disagromr.com?subject=Consulta: ${encodeURIComponent(p.name)}&body=Hola DISAGRO MR,%0D%0A%0D%0AEstoy interesado en el producto: ${encodeURIComponent(p.name)}%0D%0A%0D%0APor favor brindarme información y cotización.%0D%0A%0D%0AGracias.`;
+  document.getElementById('modalMailto').href = mailto;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalBtn();
+});
+
+// ════════════════════════════════════════
+// INTERSECTION OBSERVER
+// ════════════════════════════════════════
+function setupIntersectionObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.card:not(.visible)').forEach(card => observer.observe(card));
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+renderCards(PRODUCTS);
+
+// Update badge counts on tabs
+catOrder.forEach(cat => {
+  const n = PRODUCTS.filter(p => p.cat === cat).length;
+  document.getElementById('badge-' + cat).textContent = n;
+});
+</script>
+</body>
+</html>
