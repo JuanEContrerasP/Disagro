@@ -153,4 +153,9 @@ export const STATIC_PRODUCTOS: Producto[] = [
 
   p('p-19', 'Sogas Trenza Tipo C', 'Trenza de polipropileno de 8 y 16 cabos (19–21 mm), con alta vida útil, filtros UV y resistencia a la humedad, peso y tensión.', 'cat-hilos',
     '• Material: polipropileno\n• Conformada por 8 y 16 cabos según su espesor (19 mm – 21 mm)\n• Alta vida útil\n• Aditivada con filtros UV\n• Resistencia a la humedad, peso y tensión'),
+
+  // ── CARTONPLAST ────────────────────────────────────────────────────────────
+  p('p-20', 'Láminas en CartonPlast', 'Láminas corrugadas elaboradas con polipropileno al 100%, impermeables, livianas, reciclables y resistentes a agentes químicos.', 'cat-cartonplast',
+    '• Elaborado con polipropileno al 100%\n• Impermeable\n• Inmune a hongos y bacterias\n• Liviano y moldeable\n• Permite troquelado y sellado por ultrasonido\n• Reciclable y resistente a agentes químicos',
+    true),
 ]
