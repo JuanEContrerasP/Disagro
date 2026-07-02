@@ -133,4 +133,24 @@ export const STATIC_PRODUCTOS: Producto[] = [
 
   p('p-14', 'Agrotextil', 'Manto geotextil biodegradable que se integra totalmente al suelo, recupera áreas degradadas y genera microclima.', 'cat-telas',
     '• Biodegradable, se integra totalmente al suelo\n• Facilita el paso moderado de la luz solar\n• Recupera áreas degradadas o quemadas, riveras de ríos, riachuelos y quebradas\n• Retiene y libera humedad, generando un microclima entre el suelo y el manto'),
+
+  // ── HILOS Y SOGAS ──────────────────────────────────────────────────────────
+  p('p-15', 'Hilos y Sogas de Fique', 'Elaborados con fibras 100% naturales, recubiertos con emulsión especial para mayor resistencia a la humedad y microorganismos.', 'cat-hilos',
+    '• Elaborados con fibras 100% naturales\n• Recubiertos con emulsión especial para mayor resistencia a la humedad\n• Evitan el ataque de microorganismos',
+    true),
+
+  p('p-16', 'Hilos de Polipropileno', 'Hilos sintéticos de alta resistencia con colores más vivos, disponibles en diferentes presentaciones y resistentes a la humedad.', 'cat-hilos',
+    '• Mayor resistencia\n• Colores más vivos\n• Diferentes presentaciones\n• Resistencia a la humedad',
+    true),
+
+  p('p-17', 'Soga Pisadora', 'Soga en polipropileno de 5 mm altamente especializada, con aditivo UV a 2 años, alta flexibilidad y resistencia a altas temperaturas.', 'cat-hilos',
+    '• Material: polipropileno 5 mm\n• Aditivo UV a 2 años\n• Altamente especializada y resistente\n• Alta flexibilidad y resistencia a altas temperaturas',
+    true),
+
+  p('p-18', 'Sogas de Polipropileno', 'Alta resistencia a la tensión para elevar material, transportar herramientas y múltiples amarres en los sectores ganadero, marítimo, industrial y construcción.', 'cat-hilos',
+    '• Alta resistencia a la tensión\n• Útiles para elevar material y transportar herramientas\n• Múltiples tipos de amarres\n• Usos: sectores ganadero, marítimo, terrestre, industrial y construcción',
+    true),
+
+  p('p-19', 'Sogas Trenza Tipo C', 'Trenza de polipropileno de 8 y 16 cabos (19–21 mm), con alta vida útil, filtros UV y resistencia a la humedad, peso y tensión.', 'cat-hilos',
+    '• Material: polipropileno\n• Conformada por 8 y 16 cabos según su espesor (19 mm – 21 mm)\n• Alta vida útil\n• Aditivada con filtros UV\n• Resistencia a la humedad, peso y tensión'),
 ]
