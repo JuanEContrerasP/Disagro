@@ -158,4 +158,30 @@ export const STATIC_PRODUCTOS: Producto[] = [
   p('p-20', 'Láminas en CartonPlast', 'Láminas corrugadas elaboradas con polipropileno al 100%, impermeables, livianas, reciclables y resistentes a agentes químicos.', 'cat-cartonplast',
     '• Elaborado con polipropileno al 100%\n• Impermeable\n• Inmune a hongos y bacterias\n• Liviano y moldeable\n• Permite troquelado y sellado por ultrasonido\n• Reciclable y resistente a agentes químicos',
     true),
+
+  // ── PLASTICULTURA Y EMPAQUES ───────────────────────────────────────────────
+  p('p-21', 'Plásticos para Invernadero', 'Plástico para cubierta de invernaderos, aditivado con filtro UV a 24 meses. Disponible en diferentes calibres y anchos.', 'cat-estuches',
+    '• Aditivado con filtro UV a 24 meses\n• Diferentes calibres y anchos',
+    true),
+
+  p('p-22', 'Sacos de Polipropileno', 'Sacos de polipropileno laminados y sin laminar, en material 100% virgen de alta resistencia y fácil manejo.', 'cat-estuches',
+    '• Laminados y sin laminar\n• Material 100% virgen de alta resistencia\n• Fácil manejo\n• Disponible 100% blanco o marcado a una o dos caras',
+    true),
+
+  p('p-23', 'Saco Trinchera', 'Sacos reciclables de alta durabilidad con aditivo UV, flexibles y resistentes a factores hostiles del ambiente.', 'cat-estuches',
+    '• Reciclables\n• Alta resistencia a factores hostiles o de alto riesgo en el ambiente\n• Flexibilidad\n• Alta durabilidad gracias al aditivo UV, que protege de los rayos intensos del sol',
+    true),
+
+  p('p-24', 'Sacos Suelo Cemento', 'Sacos de alta resistencia a la compactación, biodegradables, que favorecen la revegetalización y se moldean fácilmente.', 'cat-estuches',
+    '• Alta resistencia al procedimiento de compactación\n• Biodegradable\n• Favorece el proceso de revegetalización\n• No se desliza cuando se arma la estructura\n• Se deja moldear y compactar fácilmente',
+    true),
+
+  p('p-25', 'Clamshell 125 g', 'Envase plástico termoformado en PET perforado. Transparente, reciclable. 100% protección y frescura.', 'cat-estuches',
+    '• Material: PET perforado\n• Dimensiones: 108,25 × 106,5 × 31 mm\n• Capacidad aprox.: 125 g\n• Unidades por caja: 1.000\n• Transparente y reciclable'),
+
+  p('p-26', 'Clamshell 250 g', 'Envase plástico termoformado en PET perforado. Transparente, reciclable. 100% protección y frescura.', 'cat-estuches',
+    '• Material: PET perforado\n• Dimensiones: 123 × 126 × 59,6 mm\n• Capacidad aprox.: 250 g\n• Unidades por caja: 800\n• Transparente y reciclable'),
+
+  p('p-27', 'Clamshell 500 g', 'Envase plástico termoformado en PET perforado. Transparente, reciclable. 100% protección y frescura.', 'cat-estuches',
+    '• Material: PET perforado\n• Dimensiones: 119,25 × 182 × 70,9 mm\n• Capacidad aprox.: 500 g\n• Unidades por caja: 500\n• Transparente y reciclable'),
 ]
