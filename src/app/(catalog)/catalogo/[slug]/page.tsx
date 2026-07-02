@@ -6,6 +6,7 @@ import {
   CheckCircle, ClipboardList, ShoppingCart,
 } from 'lucide-react'
 import { createServerSupabaseClient } from '@/lib/supabase'
+import { STATIC_PRODUCTOS } from '@/data/static-catalog'
 import type { Metadata } from 'next'
 import type { Producto } from '@/types'
 
@@ -15,40 +16,58 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const supabase = await createServerSupabaseClient()
-  const { data } = await supabase
-    .from('productos')
-    .select('nombre, descripcion')
-    .eq('slug', slug)
-    .single()
+  try {
+    const supabase = await createServerSupabaseClient()
+    const { data } = await supabase
+      .from('productos')
+      .select('nombre, descripcion')
+      .eq('slug', slug)
+      .single()
+    if (data) return { title: data.nombre, description: data.descripcion ?? undefined }
+  } catch { /* fall through */ }
 
-  if (!data) return { title: 'Producto no encontrado' }
-  return {
-    title: data.nombre,
-    description: data.descripcion ?? undefined,
-  }
+  const staticProducto = STATIC_PRODUCTOS.find(p => p.slug === slug)
+  if (!staticProducto) return { title: 'Producto no encontrado' }
+  return { title: staticProducto.nombre, description: staticProducto.descripcion ?? undefined }
 }
 
 export default async function ProductoDetallePage({ params }: Props) {
   const { slug } = await params
-  const supabase = await createServerSupabaseClient()
 
-  const { data: producto } = await supabase
-    .from('productos')
-    .select('*, categorias(id, nombre, slug, icono)')
-    .eq('slug', slug)
-    .single() as { data: Producto | null }
+  let producto: Producto | null = null
+  let relacionados: Producto[] = []
+
+  try {
+    const supabase = await createServerSupabaseClient()
+    const { data } = await supabase
+      .from('productos')
+      .select('*, categorias(id, nombre, slug, icono)')
+      .eq('slug', slug)
+      .single() as { data: Producto | null }
+
+    if (data) {
+      producto = data
+      const { data: rel } = await supabase
+        .from('productos')
+        .select('id, nombre, slug, imagen_url, marca, unidad, categorias(icono, nombre)')
+        .eq('categoria_id', producto.categoria_id ?? '')
+        .neq('slug', slug)
+        .eq('disponible', true)
+        .limit(4)
+      relacionados = (rel as unknown as Producto[]) ?? []
+    }
+  } catch { /* fall through */ }
+
+  if (!producto) {
+    producto = STATIC_PRODUCTOS.find(p => p.slug === slug) ?? null
+    if (producto) {
+      relacionados = STATIC_PRODUCTOS
+        .filter(p => p.categoria_id === producto!.categoria_id && p.slug !== slug)
+        .slice(0, 4)
+    }
+  }
 
   if (!producto) notFound()
-
-  // Productos relacionados (misma categoría, distinto slug)
-  const { data: relacionados } = await supabase
-    .from('productos')
-    .select('id, nombre, slug, imagen_url, marca, unidad, categorias(icono, nombre)')
-    .eq('categoria_id', producto.categoria_id ?? '')
-    .neq('slug', slug)
-    .eq('disponible', true)
-    .limit(4)
 
   return (
     <div className="min-h-screen bg-[#F5F5F4]">
