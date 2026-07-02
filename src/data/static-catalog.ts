@@ -114,4 +114,23 @@ export const STATIC_PRODUCTOS: Producto[] = [
 
   p('p-09', 'Malla Cerramiento', 'Malla plástica resistente para cerramientos de patios, jardines y confinamiento en granjas avícolas.', 'cat-mallas',
     '• Uso: cerramientos de patios y jardines\n• Confinamiento en granjas avícolas'),
+
+  // ── TELAS ──────────────────────────────────────────────────────────────────
+  p('p-10', 'Tela Cubresuelos', 'Mejora la productividad de los cultivos, controla el crecimiento de malezas y disminuye el consumo de agua y agroquímicos.', 'cat-telas',
+    '• Mejora la productividad de los cultivos\n• Controla el crecimiento de malezas y plagas\n• Disminuye el consumo de agua y agroquímicos',
+    true),
+
+  p('p-11', 'Tela Sombra Negra 65% y 80%', 'Tela de sombrío negra para manejo de luminosidad en cultivos. Disponible en 65% y 80% de sombra.', 'cat-telas',
+    '• Color negra\n• Porcentajes: 65% y 80%\n• Protección UV: 24 meses\n• Ancho: 4 m × rollo de 100 m lineales',
+    true),
+
+  p('p-12', 'Tela Cerramiento', 'Barrera visual que restringe el paso de personas y animales al área de trabajo, y sirve como barrera contra el polvo y la suciedad.', 'cat-telas',
+    '• Barrera visual que restringe el paso de personas y animales\n• Barrera contra polvo y suciedad',
+    true),
+
+  p('p-13', 'Telas de Fibra Natural', 'Telas biodegradables que mantienen la humedad y reducen la temperatura, fáciles de instalar y mantener.', 'cat-telas',
+    '• Biodegradables\n• Mantienen la humedad, absorbiendo hasta 4 veces su peso en agua\n• Reducen la temperatura por radiación\n• Fáciles de instalar y mantener'),
+
+  p('p-14', 'Agrotextil', 'Manto geotextil biodegradable que se integra totalmente al suelo, recupera áreas degradadas y genera microclima.', 'cat-telas',
+    '• Biodegradable, se integra totalmente al suelo\n• Facilita el paso moderado de la luz solar\n• Recupera áreas degradadas o quemadas, riveras de ríos, riachuelos y quebradas\n• Retiene y libera humedad, generando un microclima entre el suelo y el manto'),
 ]
