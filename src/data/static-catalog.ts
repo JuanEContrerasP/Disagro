@@ -39,10 +39,10 @@ export const STATIC_CATEGORIAS: Categoria[] = [
   },
   {
     id: 'cat-estuches',
-    nombre: 'Estuches y Plasticultura',
+    nombre: 'Plasticultura y Empaques',
     descripcion: '',
     icono: '📦',
-    slug: 'estuches-plasticultura',
+    slug: 'plasticultura-empaques',
     activa: true,
     created_at: '2025-01-01T00:00:00Z',
   },
