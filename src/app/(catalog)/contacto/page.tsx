@@ -77,26 +77,18 @@ function ContactoForm() {
         </div>
         <h2 className="text-2xl font-bold text-[#1C2B1A] mb-2">¡Solicitud enviada!</h2>
 
-        {whatsappUrl ? (
-          <>
-            <p className="text-[#6B7280] mb-6">
-              Recibimos tu información. Haz clic abajo para continuar la conversación por WhatsApp y un asesor te atenderá de inmediato.
-            </p>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-xl hover:bg-[#1ebe5d] transition-colors mb-4"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Continuar por WhatsApp
-            </a>
-          </>
-        ) : (
-          <p className="text-[#6B7280] mb-6">
-            Recibimos tu cotización. Un asesor te contactará pronto.
-          </p>
-        )}
+        <p className="text-[#6B7280] mb-6">
+          Recibimos tu solicitud. Un asesor te contactará pronto.
+        </p>
+        <a
+          href={whatsappUrl ?? `https://wa.me/573102978679?text=${encodeURIComponent('Hola DISAGRO MR, acabo de enviar una solicitud de cotización y quiero hablar con un asesor.')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-xl hover:bg-[#1ebe5d] transition-colors mb-4"
+        >
+          <MessageCircle className="w-5 h-5" />
+          Hablar por WhatsApp
+        </a>
 
         <button
           onClick={() => { setExito(false); setWhatsappUrl(null) }}
