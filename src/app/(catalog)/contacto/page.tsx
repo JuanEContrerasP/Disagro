@@ -1,25 +1,43 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Image from 'next/image'
-import { MapPin, Phone, Mail, Clock, CheckCircle } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { MapPin, Phone, Mail, Clock, CheckCircle, MessageCircle } from 'lucide-react'
+import { STATIC_PRODUCTOS } from '@/data/static-catalog'
 import type { CotizacionInput } from '@/types'
 
-export default function ContactoPage() {
+function ContactoForm() {
+  const searchParams = useSearchParams()
+  const productoId = searchParams.get('producto')
+  const producto = productoId ? STATIC_PRODUCTOS.find(p => p.id === productoId) : null
+
   const [form, setForm] = useState<CotizacionInput>({
     nombre_cliente: '',
     empresa: '',
     ciudad: '',
     telefono: '',
     email: '',
-    mensaje: '',
+    mensaje: producto ? `Estoy interesado en: ${producto.nombre}` : '',
+    productos_ids: producto ? [producto.id] : [],
   })
   const [enviando, setEnviando] = useState(false)
   const [exito, setExito] = useState(false)
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null)
   const [error, setError] = useState('')
 
+  useEffect(() => {
+    if (producto) {
+      setForm(prev => ({
+        ...prev,
+        mensaje: `Estoy interesado en: ${producto.nombre}`,
+        productos_ids: [producto.id],
+      }))
+    }
+  }, [productoId]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,13 +52,16 @@ export default function ContactoPage() {
         body: JSON.stringify(form),
       })
 
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Error al enviar')
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error || 'Error al enviar')
+
+      if (data.fallback === 'whatsapp') {
+        setWhatsappUrl(data.whatsapp_url)
       }
 
       setExito(true)
-      setForm({ nombre_cliente: '', empresa: '', ciudad: '', telefono: '', email: '', mensaje: '' })
+      setForm({ nombre_cliente: '', empresa: '', ciudad: '', telefono: '', email: '', mensaje: '', productos_ids: [] })
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Error al enviar la solicitud')
     } finally {
@@ -48,6 +69,154 @@ export default function ContactoPage() {
     }
   }
 
+  if (exito) {
+    return (
+      <div className="bg-white rounded-xl border border-[#E2E8E0] p-10 text-center">
+        <div className="w-16 h-16 rounded-full bg-[#E8F5E2] flex items-center justify-center mx-auto mb-4">
+          <CheckCircle className="w-8 h-8 text-[#3A6B35]" />
+        </div>
+        <h2 className="text-2xl font-bold text-[#1C2B1A] mb-2">¡Solicitud enviada!</h2>
+
+        {whatsappUrl ? (
+          <>
+            <p className="text-[#6B7280] mb-6">
+              Recibimos tu información. Haz clic abajo para continuar la conversación por WhatsApp y un asesor te atenderá de inmediato.
+            </p>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-xl hover:bg-[#1ebe5d] transition-colors mb-4"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Continuar por WhatsApp
+            </a>
+          </>
+        ) : (
+          <p className="text-[#6B7280] mb-6">
+            Recibimos tu cotización. Un asesor te contactará pronto.
+          </p>
+        )}
+
+        <button
+          onClick={() => { setExito(false); setWhatsappUrl(null) }}
+          className="block mx-auto text-sm text-[#6B7280] hover:text-[#3A6B35] transition-colors mt-2"
+        >
+          Enviar otra solicitud
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-[#E2E8E0] p-8 space-y-5">
+      <h2 className="text-xl font-bold text-[#1C2B1A]">Datos de contacto</h2>
+
+      {producto && (
+        <div className="flex items-center gap-3 p-3 bg-[#E8F5E2] rounded-lg border border-[#3A6B35]/20">
+          <span className="text-[#3A6B35] text-lg">🌿</span>
+          <p className="text-sm text-[#3A6B35] font-medium">
+            Cotizando: <span className="font-bold">{producto.nombre}</span>
+          </p>
+        </div>
+      )}
+
+      {error && (
+        <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
+            Nombre completo <span className="text-red-500">*</span>
+          </label>
+          <input
+            name="nombre_cliente"
+            value={form.nombre_cliente}
+            onChange={handleChange}
+            required
+            placeholder="Tu nombre"
+            className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
+            Empresa / Finca
+          </label>
+          <input
+            name="empresa"
+            value={form.empresa}
+            onChange={handleChange}
+            placeholder="Nombre de la empresa o finca"
+            className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">Ciudad</label>
+          <input
+            name="ciudad"
+            value={form.ciudad}
+            onChange={handleChange}
+            placeholder="Ciudad o municipio"
+            className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
+            Teléfono <span className="text-red-500">*</span>
+          </label>
+          <input
+            name="telefono"
+            value={form.telefono}
+            onChange={handleChange}
+            placeholder="Celular o fijo"
+            className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
+          Correo electrónico
+        </label>
+        <input
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="tu@correo.com"
+          className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
+          ¿Qué productos necesitas?
+        </label>
+        <textarea
+          name="mensaje"
+          value={form.mensaje}
+          onChange={handleChange}
+          rows={4}
+          placeholder="Describe los productos, cantidades o cualquier detalle relevante..."
+          className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35] resize-none"
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={enviando}
+        className="w-full py-3 bg-[#3A6B35] text-white font-semibold rounded-lg hover:bg-[#2D5228] disabled:opacity-60 transition-colors"
+      >
+        {enviando ? 'Enviando...' : 'Enviar solicitud de cotización'}
+      </button>
+    </form>
+  )
+}
+
+export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F4]">
       {/* Banner */}
@@ -74,122 +243,21 @@ export default function ContactoPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Formulario */}
           <div className="lg:col-span-2">
-            {exito ? (
-              <div className="bg-white rounded-xl border border-[#E2E8E0] p-10 text-center">
-                <div className="w-16 h-16 rounded-full bg-[#E8F5E2] flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-[#3A6B35]" />
+            <Suspense fallback={
+              <div className="bg-white rounded-xl border border-[#E2E8E0] p-8">
+                <div className="animate-pulse space-y-4">
+                  <div className="h-6 bg-[#E2E8E0] rounded w-1/3" />
+                  <div className="grid grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => <div key={i} className="h-10 bg-[#E2E8E0] rounded" />)}
+                  </div>
+                  <div className="h-10 bg-[#E2E8E0] rounded" />
+                  <div className="h-24 bg-[#E2E8E0] rounded" />
+                  <div className="h-12 bg-[#E2E8E0] rounded" />
                 </div>
-                <h2 className="text-2xl font-bold text-[#1C2B1A] mb-2">¡Solicitud enviada!</h2>
-                <p className="text-[#6B7280] mb-6">
-                  Recibimos tu cotización. Un asesor te contactará pronto.
-                </p>
-                <button
-                  onClick={() => setExito(false)}
-                  className="px-6 py-2.5 bg-[#3A6B35] text-white rounded-lg font-semibold hover:bg-[#2D5228] transition-colors"
-                >
-                  Enviar otra solicitud
-                </button>
               </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="bg-white rounded-xl border border-[#E2E8E0] p-8 space-y-5"
-              >
-                <h2 className="text-xl font-bold text-[#1C2B1A]">Datos de contacto</h2>
-
-                {error && (
-                  <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
-                    {error}
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
-                      Nombre completo <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="nombre_cliente"
-                      value={form.nombre_cliente}
-                      onChange={handleChange}
-                      required
-                      placeholder="Tu nombre"
-                      className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
-                      Empresa / Finca
-                    </label>
-                    <input
-                      name="empresa"
-                      value={form.empresa}
-                      onChange={handleChange}
-                      placeholder="Nombre de la empresa o finca"
-                      className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">Ciudad</label>
-                    <input
-                      name="ciudad"
-                      value={form.ciudad}
-                      onChange={handleChange}
-                      placeholder="Ciudad o municipio"
-                      className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
-                      Teléfono <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="telefono"
-                      value={form.telefono}
-                      onChange={handleChange}
-                      placeholder="Celular o fijo"
-                      className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
-                    Correo electrónico
-                  </label>
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="tu@correo.com"
-                    className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-[#1C2B1A] mb-1.5">
-                    ¿Qué productos necesitas?
-                  </label>
-                  <textarea
-                    name="mensaje"
-                    value={form.mensaje}
-                    onChange={handleChange}
-                    rows={4}
-                    placeholder="Describe los productos, cantidades o cualquier detalle relevante..."
-                    className="w-full px-3.5 py-2.5 border border-[#E2E8E0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#3A6B35] resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={enviando}
-                  className="w-full py-3 bg-[#3A6B35] text-white font-semibold rounded-lg hover:bg-[#2D5228] disabled:opacity-60 transition-colors"
-                >
-                  {enviando ? 'Enviando...' : 'Enviar solicitud de cotización'}
-                </button>
-              </form>
-            )}
+            }>
+              <ContactoForm />
+            </Suspense>
           </div>
 
           {/* Info de contacto */}
