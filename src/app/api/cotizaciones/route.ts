@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createAdminSupabaseClient } from '@/lib/supabase'
 import { STATIC_PRODUCTOS } from '@/data/static-catalog'
 import type { CotizacionInput } from '@/types'
 
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const supabase = await createServerSupabaseClient()
+    const supabase = createAdminSupabaseClient()
     const { data, error } = await supabase
       .from('cotizaciones')
       .insert({
