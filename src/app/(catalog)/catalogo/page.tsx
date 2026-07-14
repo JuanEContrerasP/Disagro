@@ -1,8 +1,16 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { CatalogoContent } from '@/components/CatalogoContent'
 import { STATIC_PRODUCTOS, STATIC_CATEGORIAS } from '@/data/static-catalog'
 import { createServerSupabaseClient } from '@/lib/supabase'
 import type { Producto, Categoria } from '@/types'
+
+export const metadata: Metadata = {
+  title: 'Catálogo de productos',
+  description:
+    'Explora nuestro catálogo completo: mallas agrícolas, telas de campo, hilos y sogas, cartonplast y empaques agroindustriales. Solicita cotización en línea.',
+  alternates: { canonical: 'https://disagro-landing.vercel.app/catalogo' },
+}
 
 const SUPABASE_CONFIGURED = !!(
   process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith('https://') &&

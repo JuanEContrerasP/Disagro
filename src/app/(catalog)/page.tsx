@@ -1,24 +1,31 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import {
-  Leaf, Droplets, Wheat, Tractor, Package, Sprout,
-  CheckCircle, Truck, Users,
-} from 'lucide-react'
+import { CheckCircle, Truck, Users } from 'lucide-react'
+import { STATIC_PRODUCTOS } from '@/data/static-catalog'
+
+export const metadata: Metadata = {
+  title: 'DISAGRO MR — Mallas, Telas y Empaques Agroindustriales',
+  description:
+    'Distribuidor de mallas agrícolas, telas de campo, hilos y sogas, cartonplast y empaques en Colombia. Asesoría experta y despacho a todo el país desde Mosquera, Cundinamarca.',
+  alternates: { canonical: 'https://disagro-landing.vercel.app' },
+}
 
 const categorias = [
-  { icono: Leaf,    nombre: 'Agroquímicos', slug: 'agroquimicos', desc: 'Herbicidas, fungicidas e insecticidas' },
-  { icono: Sprout,  nombre: 'Fertilizantes', slug: 'fertilizantes', desc: 'Nutrición vegetal y enmiendas' },
-  { icono: Wheat,   nombre: 'Semillas', slug: 'semillas', desc: 'Semillas certificadas y variedades' },
-  { icono: Tractor, nombre: 'Equipos', slug: 'equipos', desc: 'Herramientas y maquinaria agrícola' },
-  { icono: Droplets,nombre: 'Riego', slug: 'riego', desc: 'Sistemas e insumos para riego' },
-  { icono: Package, nombre: 'Otros', slug: 'otros', desc: 'Insumos varios del campo' },
+  { emoji: '🌿', nombre: 'Mallas',                    slug: 'mallas',                 desc: 'Antiáfido, cortavientos, antigranizo' },
+  { emoji: '🧵', nombre: 'Telas',                     slug: 'telas',                  desc: 'Cubresuelo, sombra, cerramiento'       },
+  { emoji: '🪢', nombre: 'Hilos y Sogas',             slug: 'hilos-sogas',            desc: 'Rafia, sisal, nilón agrícola'          },
+  { emoji: '📋', nombre: 'Cartonplast',               slug: 'cartonplast',            desc: 'Láminas plásticas corrugadas'          },
+  { emoji: '📦', nombre: 'Plasticultura y Empaques',  slug: 'plasticultura-empaques', desc: 'Plástico invernadero, sacos, estuches' },
 ]
 
 const valores = [
-  { icono: CheckCircle, titulo: 'Calidad garantizada', desc: 'Productos de marcas líderes del sector agro.' },
-  { icono: Truck,       titulo: 'Distribución directa', desc: 'Llegamos al productor donde más se necesita.' },
-  { icono: Users,       titulo: 'Asesoría experta', desc: 'Equipo técnico listo para orientarte.' },
+  { icono: CheckCircle, titulo: 'Calidad garantizada',   desc: 'Productos de marcas líderes del sector agro.' },
+  { icono: Truck,       titulo: 'Distribución directa',  desc: 'Llegamos al productor donde más se necesita.' },
+  { icono: Users,       titulo: 'Asesoría experta',      desc: 'Equipo técnico listo para orientarte.'        },
 ]
+
+const destacados = STATIC_PRODUCTOS.filter(p => p.destacado).slice(0, 4)
 
 export default function HomePage() {
   return (
@@ -41,11 +48,11 @@ export default function HomePage() {
               Distribuciones Agroindustriales MR
             </span>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-              Insumos del campo,<br />
-              <span className="text-[#5B9B2F]">con respaldo de expertos</span>
+              Mallas, telas y empaques<br />
+              <span className="text-[#5B9B2F]">para el campo colombiano</span>
             </h1>
             <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-              Encuentra el producto agro que necesitas — agroquímicos, fertilizantes, semillas y más. Distribución directa al productor colombiano.
+              Malla antiáfido, cortavientos, antigranizo, telas agrícolas, hilos, sogas, cartonplast y plástico invernadero. Distribuimos en todo el país desde Mosquera, Cundinamarca.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -69,30 +76,27 @@ export default function HomePage() {
       <section className="py-20 bg-[#F5F5F4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#1C2B1A] mb-3">Nuestras categorías</h2>
+            <h2 className="text-3xl font-bold text-[#1C2B1A] mb-3">Nuestras líneas de producto</h2>
             <p className="text-[#6B7280] max-w-xl mx-auto">
               Portafolio completo de insumos agroindustriales para cada etapa del cultivo.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categorias.map((cat) => {
-              const Icon = cat.icono
-              return (
-                <Link
-                  key={cat.slug}
-                  href={`/catalogo?categoria=${cat.slug}`}
-                  className="group flex flex-col items-center text-center p-5 bg-white rounded-xl border border-[#E2E8E0] hover:border-[#3A6B35] hover:shadow-md transition-all"
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#E8F5E2] flex items-center justify-center mb-3 group-hover:bg-[#3A6B35] transition-colors">
-                    <Icon className="w-6 h-6 text-[#3A6B35] group-hover:text-white transition-colors" />
-                  </div>
-                  <p className="font-semibold text-[#1C2B1A] text-sm group-hover:text-[#3A6B35] transition-colors">
-                    {cat.nombre}
-                  </p>
-                  <p className="text-xs text-[#6B7280] mt-1 hidden lg:block">{cat.desc}</p>
-                </Link>
-              )
-            })}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {categorias.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/catalogo?categoria=${cat.slug}`}
+                className="group flex flex-col items-center text-center p-5 bg-white rounded-xl border border-[#E2E8E0] hover:border-[#3A6B35] hover:shadow-md transition-all"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#E8F5E2] flex items-center justify-center mb-3 text-2xl group-hover:bg-[#3A6B35] transition-colors">
+                  {cat.emoji}
+                </div>
+                <p className="font-semibold text-[#1C2B1A] text-sm group-hover:text-[#3A6B35] transition-colors">
+                  {cat.nombre}
+                </p>
+                <p className="text-xs text-[#6B7280] mt-1 hidden lg:block">{cat.desc}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -114,25 +118,42 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-[#E2E8E0] bg-[#F5F5F4] overflow-hidden animate-pulse"
+            {destacados.map((producto) => (
+              <Link
+                key={producto.id}
+                href={`/catalogo/${producto.slug}`}
+                className="group rounded-xl border border-[#E2E8E0] bg-white overflow-hidden hover:border-[#3A6B35] hover:shadow-md transition-all"
               >
-                <div className="h-48 bg-[#E2E8E0]" />
-                <div className="p-4 space-y-2">
-                  <div className="h-4 bg-[#E2E8E0] rounded w-3/4" />
-                  <div className="h-3 bg-[#E2E8E0] rounded w-1/2" />
-                  <div className="h-8 bg-[#E2E8E0] rounded mt-4" />
+                <div className="relative h-48 bg-[#E8F5E2]">
+                  {producto.imagen_url ? (
+                    <Image
+                      src={producto.imagen_url}
+                      alt={producto.nombre}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-4xl">
+                      {producto.categorias?.icono ?? '🌿'}
+                    </div>
+                  )}
+                  <span className="absolute top-2 left-2 px-2 py-0.5 bg-[#5B9B2F] text-white text-xs font-bold rounded-full">
+                    Destacado
+                  </span>
                 </div>
-              </div>
+                <div className="p-4">
+                  <p className="font-semibold text-[#1C2B1A] text-sm leading-snug group-hover:text-[#3A6B35] transition-colors line-clamp-2">
+                    {producto.nombre}
+                  </p>
+                  <p className="text-xs text-[#6B7280] mt-1 line-clamp-2">{producto.descripcion}</p>
+                  <span className="inline-block mt-3 text-xs font-semibold text-[#3A6B35]">
+                    Ver detalles →
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
-
-          <p className="text-center text-sm text-[#6B7280] mt-8">
-            Conecta Supabase para mostrar productos reales — ver{' '}
-            <code className="bg-[#E8F5E2] text-[#3A6B35] px-1 rounded">.env.local</code>
-          </p>
         </div>
       </section>
 
