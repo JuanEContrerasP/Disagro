@@ -5,9 +5,10 @@ import type { Producto } from '@/types'
 
 interface Props {
   producto: Producto
+  priority?: boolean
 }
 
-export function ProductCard({ producto }: Props) {
+export function ProductCard({ producto, priority = false }: Props) {
   return (
     <div className="group bg-white rounded-xl border border-[#E2E8E0] overflow-hidden hover:border-[#3A6B35] hover:shadow-lg transition-all duration-200 flex flex-col">
       {/* Imagen */}
@@ -17,6 +18,8 @@ export function ProductCard({ producto }: Props) {
             src={producto.imagen_url}
             alt={producto.nombre}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            priority={priority}
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (

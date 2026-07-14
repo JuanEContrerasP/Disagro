@@ -115,6 +115,7 @@ export default async function ProductoDetallePage({ params }: Props) {
                   src={producto.imagen_url}
                   alt={producto.nombre}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                   priority
                 />

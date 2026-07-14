@@ -2,11 +2,24 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase'
 import { STATIC_PRODUCTOS } from '@/data/static-catalog'
 
+const SUPABASE_CONFIGURED = !!(
+  process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith('https://') &&
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const categoria = searchParams.get('categoria')
   const q = searchParams.get('q')
   const destacado = searchParams.get('destacado')
+
+  if (!SUPABASE_CONFIGURED) {
+    let result = STATIC_PRODUCTOS
+    if (categoria) result = result.filter(p => p.categorias?.slug === categoria)
+    if (q) result = result.filter(p => p.nombre.toLowerCase().includes(q.toLowerCase()))
+    if (destacado === 'true') result = result.filter(p => p.destacado)
+    return NextResponse.json(result)
+  }
 
   try {
     const supabase = await createServerSupabaseClient()
