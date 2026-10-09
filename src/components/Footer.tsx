@@ -9,18 +9,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="mb-4">
               <Image
-                src="/logo.jpeg"
-                alt="DISAGRO MR"
-                width={48}
-                height={48}
-                className="rounded-md object-contain bg-white p-1"
+                src="/logo.png"
+                alt="DISAGRO MR - Distribuciones Agroindustriales"
+                width={180}
+                height={108}
+                className="h-16 w-auto rounded-md object-contain"
               />
-              <div>
-                <p className="font-bold text-[#5B9B2F]">DISAGRO MR</p>
-                <p className="text-xs text-gray-400">Distribuciones Agroindustriales</p>
-              </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               Insumos del campo con respaldo de expertos. Conectamos el conocimiento agroindustrial con el productor colombiano.

@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://disagro-landing.vercel.app/sitemap.xml',
+    sitemap: 'https://www.disagromr.com/sitemap.xml',
   }
 }

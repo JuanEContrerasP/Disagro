@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Catálogo de productos',
   description:
     'Explora nuestro catálogo completo: mallas agrícolas, telas de campo, hilos y sogas, cartonplast y empaques agroindustriales. Solicita cotización en línea.',
-  alternates: { canonical: 'https://disagro-landing.vercel.app/catalogo' },
+  alternates: { canonical: '/catalogo' },
 }
 
 const SUPABASE_CONFIGURED = !!(

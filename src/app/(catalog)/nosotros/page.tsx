@@ -59,13 +59,13 @@ export default function NosotrosPage() {
               </p>
             </div>
             <div className="shrink-0">
-              <div className="w-48 h-48 rounded-2xl bg-white flex items-center justify-center shadow-xl p-4">
+              <div className="w-64 max-w-full rounded-2xl bg-white shadow-xl p-4">
                 <Image
-                  src="/logo.jpeg"
-                  alt="DISAGRO MR"
-                  width={160}
-                  height={160}
-                  className="object-contain"
+                  src="/logo.png"
+                  alt="DISAGRO MR - Distribuciones Agroindustriales"
+                  width={320}
+                  height={192}
+                  className="h-auto w-full object-contain"
                 />
               </div>
             </div>

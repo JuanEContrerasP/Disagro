@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'DISAGRO MR — Mallas, Telas y Empaques Agroindustriales',
   description:
     'Distribuidor de mallas agrícolas, telas de campo, hilos y sogas, cartonplast y empaques en Colombia. Asesoría experta y despacho a todo el país desde Mosquera, Cundinamarca.',
-  alternates: { canonical: 'https://disagro-landing.vercel.app' },
+  alternates: { canonical: '/' },
 }
 
 const categorias = [
@@ -44,9 +44,14 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-40">
           <div className="max-w-2xl">
-            <span className="inline-block px-3 py-1 rounded-full bg-[#5B9B2F]/30 text-[#E8F5E2] text-sm font-medium mb-6">
-              Distribuciones Agroindustriales MR
-            </span>
+            <Image
+              src="/logo.png"
+              alt="DISAGRO MR - Distribuciones Agroindustriales"
+              width={420}
+              height={252}
+              priority
+              className="mb-8 h-auto w-[260px] object-contain md:w-[360px]"
+            />
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
               Mallas, telas y empaques<br />
               <span className="text-[#5B9B2F]">para el campo colombiano</span>

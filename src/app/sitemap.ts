@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { STATIC_PRODUCTOS, STATIC_CATEGORIAS } from '@/data/static-catalog'
 
-const BASE_URL = 'https://disagro-landing.vercel.app'
+const BASE_URL = 'https://www.disagromr.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()

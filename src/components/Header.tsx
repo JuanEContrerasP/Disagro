@@ -19,18 +19,15 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center shrink-0" aria-label="DISAGRO MR">
             <Image
-              src="/logo.jpeg"
-              alt="DISAGRO MR"
-              width={48}
-              height={48}
-              className="rounded-md object-contain"
+              src="/logo.png"
+              alt="DISAGRO MR - Distribuciones Agroindustriales"
+              width={150}
+              height={90}
+              priority
+              className="h-11 w-auto object-contain"
             />
-            <div className="hidden sm:block">
-              <p className="text-sm font-bold text-[#3A6B35] leading-none">DISAGRO MR</p>
-              <p className="text-xs text-[#6B7280] leading-none mt-0.5">Distribuciones Agroindustriales</p>
-            </div>
           </Link>
 
           {/* Desktop Nav */}
