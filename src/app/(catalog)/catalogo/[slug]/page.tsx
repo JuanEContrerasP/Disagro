@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { createServerSupabaseClient } from '@/lib/supabase'
 import { STATIC_PRODUCTOS } from '@/data/static-catalog'
+import { ProductGallery } from '@/components/ProductGallery'
 import type { Metadata } from 'next'
 import type { Producto } from '@/types'
 
@@ -69,6 +70,10 @@ export default async function ProductoDetallePage({ params }: Props) {
 
   if (!producto) notFound()
 
+  const galeria = [producto.imagen_url, ...(producto.imagenes ?? [])].filter(
+    (src): src is string => Boolean(src)
+  )
+
   return (
     <div className="min-h-screen bg-[#F5F5F4]">
       {/* Breadcrumb */}
@@ -110,21 +115,7 @@ export default async function ProductoDetallePage({ params }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Imagen */}
             <div className="relative h-80 lg:h-full min-h-[360px] bg-[#E8F5E2]">
-              {producto.imagen_url ? (
-                <Image
-                  src={producto.imagen_url}
-                  alt={producto.nombre}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-[#3A6B35]/40">
-                  <Package className="w-24 h-24" />
-                  <span className="text-sm font-medium">Sin imagen disponible</span>
-                </div>
-              )}
+              <ProductGallery images={galeria} alt={producto.nombre} />
               {producto.destacado && (
                 <span className="absolute top-4 left-4 px-3 py-1 bg-[#5B9B2F] text-white text-xs font-bold rounded-full">
                   Destacado

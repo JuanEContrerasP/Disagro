@@ -57,7 +57,8 @@ function p(
   catId: string,
   ficha: string,
   imagen: string | null = null,
-  destacado = false
+  destacado = false,
+  imagenesExtra: string[] = []
 ): Producto {
   const slug = nombre
     .toLowerCase()
@@ -74,6 +75,7 @@ function p(
     marca: 'DISAGRO MR – Distribuciones Agroindustriales',
     unidad: null,
     imagen_url: imagen,
+    imagenes: imagenesExtra.length > 0 ? imagenesExtra : null,
     disponible: true,
     destacado,
     slug,
@@ -102,7 +104,8 @@ export const STATIC_PRODUCTOS: Producto[] = [
 
   p('p-04', 'Malla Diamante', 'Malla plástica en PE de alta densidad especialmente diseñada para el secado del café.', 'cat-mallas',
     '• Material: PE alta densidad\n• Uso principal: secado de café',
-    img('malla-diamante.jpg')),
+    img('malla-diamante.jpg'), false,
+    [img('malla-diamante-2.jpeg'), img('malla-diamante-3.jpeg')]),
 
   p('p-05', 'Malla Gallinero', 'Mallas elaboradas con resina sintética para cerramientos en general. Aditivada con filtros UV, alta resistencia, no se oxida.', 'cat-mallas',
     '• Material: resina sintética\n• Aditivada con filtros UV\n• Alta resistencia\n• No se oxida\n• Uso: cerramientos en general',
@@ -127,7 +130,8 @@ export const STATIC_PRODUCTOS: Producto[] = [
   // ── TELAS ──────────────────────────────────────────────────────────────────
   p('p-10', 'Tela Cubresuelos', 'Mejora la productividad de los cultivos, controla el crecimiento de malezas y disminuye el consumo de agua y agroquímicos.', 'cat-telas',
     '• Mejora la productividad de los cultivos\n• Controla el crecimiento de malezas y plagas\n• Disminuye el consumo de agua y agroquímicos',
-    img('tela-cubresuelos.jpg'), true),
+    img('tela-cubresuelos.jpg'), true,
+    [img('tela-cubresuelos-2.jpeg'), img('tela-cubresuelos-3.jpeg')]),
 
   p('p-11', 'Tela Sombra Negra 65% y 80%', 'Tela de sombrío negra para manejo de luminosidad en cultivos. Disponible en 65% y 80% de sombra.', 'cat-telas',
     '• Color negra\n• Porcentajes: 65% y 80%\n• Protección UV: 24 meses\n• Ancho: 4 m × rollo de 100 m lineales',

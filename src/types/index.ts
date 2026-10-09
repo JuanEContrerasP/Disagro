@@ -16,6 +16,7 @@ export interface Producto {
   marca: string | null
   unidad: string | null
   imagen_url: string | null
+  imagenes?: string[] | null
   disponible: boolean
   destacado: boolean
   slug: string
