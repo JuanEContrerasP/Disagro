@@ -1,5 +1,6 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton'
 
 export default function CatalogLayout({
   children,
@@ -11,6 +12,7 @@ export default function CatalogLayout({
       <Header />
       <main className="flex-1 pt-16">{children}</main>
       <Footer />
+      <WhatsAppFloatingButton />
     </>
   )
 }
